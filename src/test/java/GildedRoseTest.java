@@ -26,6 +26,23 @@ public class GildedRoseTest {
 	}
 
 	@Test
+	public void testNormalItemLossOfQualityDoublesAfterSellDate() {
+		items.add(new Item("normal item", 2, 20));
+		setItems();
+		addDays(1);
+		getItems();
+		final int qualityLossBeforeSellIn = 20 - items.get(0).quality;
+		addDays(1); // sellIn day
+		items = getItems();
+		final int qualityAtSellIn = items.get(0).quality;
+		addDays(1);
+		getItems();
+		final int qualityAfterSellIn = items.get(0).quality;
+		final int qualityLossAfterSellIn = qualityAtSellIn - qualityAfterSellIn;
+		assertTrue(qualityLossAfterSellIn == (qualityLossBeforeSellIn * 2));
+	}
+
+	@Test
 	public void testNormalItemQualityNeverNegative() {
 
 		items.add(new Item("Normal item", 10, 10));
@@ -39,6 +56,20 @@ public class GildedRoseTest {
 	@Test
 	public void testTheTruth() {
 		assertTrue(true);
+	}
+
+	/*
+	 * a bit easier to set items
+	 */
+	private void setItems() {
+		GildedRose.setItems(items);
+	}
+
+	/*
+	 * a bit easier to retrieve items
+	 */
+	private List<Item> getItems() {
+		return GildedRose.getItems();
 	}
 
 	/*
