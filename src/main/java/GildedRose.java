@@ -42,9 +42,9 @@ public class GildedRose {
 		final String brie = "Aged Brie";
 		final String passes = "Backstage passes to a TAFKAL80ETC concert";
 		final String sulfuras = "Sulfuras, Hand of Ragnaros";
+		final String conjurer = "Conjured Mana Cake";
 
-		for (int i = 0; i < items.size(); i++) {
-			final Item item = items.get(i);
+		for (final Item item : items) {
 			final String itemName = item.getName();
 			int itemQuality = item.getQuality();
 			int itemSellIn = item.getSellIn();
@@ -53,6 +53,9 @@ public class GildedRose {
 				if (itemQuality > 0) {
 					if (!sulfuras.equals(itemName)) {
 						item.setQuality(itemQuality - 1);
+					}
+					if (conjurer.equals(itemName)) {
+						item.setQuality(itemQuality - 2);
 					}
 				}
 			} else {
