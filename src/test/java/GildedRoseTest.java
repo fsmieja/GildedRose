@@ -27,6 +27,15 @@ public class GildedRoseTest {
 	}
 
 	@Test
+	public void testConjuredItemsDecreaseTwiceAsFastAsNormalItems() {
+		items.add(new Item(oddItemNames[3], 10, 10)); // this is Conjured
+		items.add(new Item("Normal item", 10, 10));
+		setItems();
+		addDays(1);
+		assertTrue((10 - items.get(0).quality) == 2 * (10 - items.get(1).quality));
+	}
+
+	@Test
 	public void testPassesDecreaseValueToZeroAfterEvent() {
 		items.add(new Item(oddItemNames[2], 1, 10)); // this is Passes
 		setItems();
