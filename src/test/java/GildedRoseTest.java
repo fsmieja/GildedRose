@@ -1,3 +1,4 @@
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -26,12 +27,22 @@ public class GildedRoseTest {
 	}
 
 	@Test
+	public void testSulfurasHasNoSellIn() {
+		items.add(new Item(oddItemNames[1], 1, 49)); // this is Sulfuras
+		setItems();
+		addDays(100);
+		getItems();
+		assertEquals(items.get(0).sellIn, 1);
+
+	}
+
+	@Test
 	public void testQualityNeverMoreThanFifty() {
 		// at least for normal items and for brie and backstage
 		items.add(new Item("Normal item", 10, 49));
 		items.add(new Item(oddItemNames[0], 10, 49)); // this is Aged Brie
 		items.add(new Item(oddItemNames[2], 10, 49)); // this is Backstage
-														// ticket...
+		// ticket...
 		setItems();
 		addDays(10);
 		getItems();
