@@ -27,13 +27,23 @@ public class GildedRoseTest {
 	}
 
 	@Test
+	public void testPassesIncreaseInValueWithAge() {
+		items.add(new Item(oddItemNames[2], 10, 10)); // this is Sulfuras
+		setItems();
+		addDays(1);
+		//getItems();
+		assertTrue(items.get(0).quality > 10);
+
+	}
+
+	@Test
 	public void testSulfurasHasNoSellInAndNoQualityChange() {
 		items.add(new Item(oddItemNames[1], 1, 49)); // this is Sulfuras
 		setItems();
 		addDays(100);
 		getItems();
 		assertEquals(items.get(0).sellIn, 1);
-		assertEquals(items.get(0).quality, 48);
+		assertEquals(items.get(0).quality, 49);
 	}
 
 	@Test
