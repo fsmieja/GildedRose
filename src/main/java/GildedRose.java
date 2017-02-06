@@ -43,6 +43,8 @@ public class GildedRose {
 		final String passes = "Backstage passes to a TAFKAL80ETC concert";
 		final String sulfuras = "Sulfuras, Hand of Ragnaros";
 		final String conjurer = "Conjured Mana Cake";
+		final int normalItemDelta = -1;
+		final int increaseItemDelta = 1;
 
 		for (final Item item : items) {
 			final String itemName = item.getName();
@@ -52,27 +54,27 @@ public class GildedRose {
 			if ((!brie.equals(itemName)) && !passes.equals(itemName)) {
 				if (itemQuality > 0) {
 					if (!sulfuras.equals(itemName)) {
-						item.setQuality(itemQuality - 1);
+						item.setQuality(itemQuality + normalItemDelta);
 					}
 					if (conjurer.equals(itemName)) {
-						item.setQuality(itemQuality - 2);
+						item.setQuality(itemQuality + (2 * normalItemDelta));
 					}
 				}
 			} else {
 				if (itemQuality < 50) {
-					item.setQuality(itemQuality + 1);
+					item.setQuality(itemQuality + increaseItemDelta);
 					itemQuality = item.getQuality();
 					if (passes.equals(itemName)) {
 						if (itemSellIn < 11) {
 							if (itemQuality < 50) {
-								item.setQuality(itemQuality + 1);
+								item.setQuality(itemQuality + increaseItemDelta);
 							}
 						}
 						itemQuality = item.getQuality();
 
 						if (itemSellIn < 6) {
 							if (itemQuality < 50) {
-								item.setQuality(itemQuality + 1);
+								item.setQuality(itemQuality + increaseItemDelta);
 							}
 						}
 					}
@@ -95,11 +97,11 @@ public class GildedRose {
 							}
 						}
 					} else {
-						item.setQuality(itemQuality - itemQuality);
+						item.setQuality(0);
 					}
 				} else {
 					if (itemQuality < 50) {
-						item.setQuality(itemQuality + 1);
+						item.setQuality(itemQuality + increaseItemDelta);
 					}
 				}
 			}
