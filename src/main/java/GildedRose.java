@@ -93,7 +93,13 @@ public class GildedRose {
 					if (!passes.equals(itemName)) {
 						if (itemQuality > 0) {
 							if (!sulfuras.equals(itemName)) {
-								item.setQuality(itemQuality - 1);
+								if (!conjurer.equals(itemName)) {
+									item.setQuality(itemQuality
+											+ normalItemDelta);
+								} else {
+									item.setQuality(itemQuality + 2
+											* normalItemDelta);
+								}
 							}
 						}
 					} else {
