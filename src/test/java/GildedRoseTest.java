@@ -26,6 +26,15 @@ public class GildedRoseTest {
 	}
 
 	@Test
+	public void testBrieIncreasesInQuality() {
+		items.add(new Item(oddItemNames[0], 10, 10)); // this is Aged Brie
+		setItems();
+		addDays(1);
+		getItems();
+		assertTrue(items.get(0).quality > 10);
+	}
+
+	@Test
 	public void testNormalItemLossOfQualityDoublesAfterSellDate() {
 		items.add(new Item("normal item", 2, 20));
 		setItems();
@@ -33,7 +42,7 @@ public class GildedRoseTest {
 		getItems();
 		final int qualityLossBeforeSellIn = 20 - items.get(0).quality;
 		addDays(1); // sellIn day
-		items = getItems();
+		getItems();
 		final int qualityAtSellIn = items.get(0).quality;
 		addDays(1);
 		getItems();
@@ -46,9 +55,9 @@ public class GildedRoseTest {
 	public void testNormalItemQualityNeverNegative() {
 
 		items.add(new Item("Normal item", 10, 10));
-		GildedRose.setItems(items);
+		setItems();
 		addDays(100); // way over sellIn date
-		items = GildedRose.getItems();
+		getItems();
 		assertFalse(items.get(0).getQuality() < 0);
 
 	}
@@ -68,8 +77,8 @@ public class GildedRoseTest {
 	/*
 	 * a bit easier to retrieve items
 	 */
-	private List<Item> getItems() {
-		return GildedRose.getItems();
+	private void getItems() {
+		items = GildedRose.getItems();
 	}
 
 	/*
