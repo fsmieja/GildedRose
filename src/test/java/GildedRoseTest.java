@@ -27,8 +27,16 @@ public class GildedRoseTest {
 	}
 
 	@Test
+	public void testPassesDecreaseValueToZeroAfterEvent() {
+		items.add(new Item(oddItemNames[2], 1, 10)); // this is Passes
+		setItems();
+		addDays(2);
+		assertTrue(items.get(0).quality == 0);
+	}
+
+	@Test
 	public void testPassesIncreaseValueByTwoThenThree() {
-		items.add(new Item(oddItemNames[2], 11, 10)); // this is Sulfuras
+		items.add(new Item(oddItemNames[2], 11, 10)); // this is Passes
 		setItems();
 		addDays(1);
 		final int valueAtTen = items.get(0).quality;
