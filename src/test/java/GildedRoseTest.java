@@ -26,6 +26,19 @@ public class GildedRoseTest {
 	}
 
 	@Test
+	public void testQualityNeverMoreThanFifty() {
+		// at least for normal items and for brie
+		items.add(new Item("Normal item", 10, 49));
+		items.add(new Item(oddItemNames[0], 10, 49)); // this is Aged Brie
+		setItems();
+		addDays(10);
+		getItems();
+		assertFalse(items.get(0).getQuality() > 50);
+		assertFalse(items.get(1).getQuality() > 50);
+
+	}
+
+	@Test
 	public void testBrieIncreasesInQuality() {
 		items.add(new Item(oddItemNames[0], 10, 10)); // this is Aged Brie
 		setItems();
