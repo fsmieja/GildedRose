@@ -27,6 +27,20 @@ public class GildedRoseTest {
 	}
 
 	@Test
+	public void testConjuredItemLossOfQualityDoublesAfterSellDate() {
+		items.add(new Item(oddItemNames[3], 2, 20)); // this is Conjured
+		setItems();
+		addDays(1);
+		final int qualityLossBeforeSellIn = 20 - items.get(0).quality;
+		addDays(1); // sellIn day
+		final int qualityAtSellIn = items.get(0).quality;
+		addDays(1);
+		final int qualityAfterSellIn = items.get(0).quality;
+		final int qualityLossAfterSellIn = qualityAtSellIn - qualityAfterSellIn;
+		assertTrue(qualityLossAfterSellIn == (qualityLossBeforeSellIn * 2));
+	}
+
+	@Test
 	public void testConjuredItemsDecreaseTwiceAsFastAsNormalItems() {
 		items.add(new Item(oddItemNames[3], 10, 10)); // this is Conjured
 		items.add(new Item("Normal item", 10, 10));
