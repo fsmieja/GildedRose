@@ -27,13 +27,13 @@ public class GildedRoseTest {
 	}
 
 	@Test
-	public void testSulfurasHasNoSellIn() {
+	public void testSulfurasHasNoSellInAndNoQualityChange() {
 		items.add(new Item(oddItemNames[1], 1, 49)); // this is Sulfuras
 		setItems();
 		addDays(100);
 		getItems();
 		assertEquals(items.get(0).sellIn, 1);
-
+		assertEquals(items.get(0).quality, 48);
 	}
 
 	@Test
