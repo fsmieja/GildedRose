@@ -46,48 +46,35 @@ public class GildedRose {
 	public static void updateQuality() {
 
 		for (final Item item : items) {
-			final String itemName = item.getName();
-			int itemQuality = item.getQuality();
-			int itemSellIn = item.getSellIn();
-
 			if (!handleSulfuras(item)) {
 				if (!handleBrie(item)) {
 					if (!handlePasses(item)) {
 						if (!handleConjurer(item)) {
-							if (itemQuality > 0) {
-
-								item.setQuality(itemQuality + normalItemDelta);
-								if (conjurer.equals(itemName)) {
-									item.setQuality(itemQuality
-											+ (2 * normalItemDelta));
-								}
-							}
-
-							itemQuality = item.getQuality();
-
-							item.setSellIn(itemSellIn - 1);
-
-							itemSellIn = item.getSellIn();
-
-							if (itemSellIn < 0) {
-								if (itemQuality > 0) {
-
-									if (!conjurer.equals(itemName)) {
-										item.setQuality(itemQuality
-												+ normalItemDelta);
-									} else {
-										item.setQuality(itemQuality + 2
-												* normalItemDelta);
-									}
-
-								}
-							}
+							handleNormalItem(item);
 						}
 					}
-
 				}
+
 			}
 		}
+	}
+
+	private static void handleNormalItem(final Item item) {
+		int itemQuality = item.getQuality();
+		int itemSellIn = item.getSellIn();
+
+		item.setSellIn(itemSellIn - 1);
+		itemSellIn = item.getSellIn();
+
+		if (itemSellIn < 0) {
+			item.setQuality(itemQuality + 2 * normalItemDelta);
+		} else {
+			item.setQuality(itemQuality + normalItemDelta);
+		}
+
+		itemQuality = item.getQuality();
+		if (itemQuality < 0)
+			item.setQuality(0);
 
 	}
 

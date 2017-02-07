@@ -27,6 +27,19 @@ public class GildedRoseTest {
 	}
 
 	@Test
+	public void testAllOddItemsQualityNeverNegative() {
+
+		for (final String name : oddItemNames) {
+			items.add(new Item(name, 5, 10));
+		}
+		setItems();
+		addDays(100); // way over sellIn date
+		for (final Item item : items) {
+			assertFalse(item.getQuality() < 0);
+		}
+	}
+
+	@Test
 	public void testConjuredItemLossOfQualityDoublesAfterSellDate() {
 		items.add(new Item(oddItemNames[3], 2, 20)); // this is Conjured
 		setItems();
@@ -101,12 +114,12 @@ public class GildedRoseTest {
 	@Test
 	public void testQualityNeverMoreThanFifty() {
 		// at least for normal items and for brie and backstage
-		items.add(new Item("Normal item", 10, 49));
-		items.add(new Item(oddItemNames[0], 10, 49)); // this is Aged Brie
-		items.add(new Item(oddItemNames[2], 10, 49)); // this is Backstage
+		items.add(new Item("Normal item", 9, 49));
+		items.add(new Item(oddItemNames[0], 5, 40)); // this is Aged Brie
+		items.add(new Item(oddItemNames[2], 9, 45)); // this is Backstage
 		// ticket...
 		setItems();
-		addDays(10);
+		addDays(100);
 		assertFalse(items.get(0).getQuality() > 50);
 		assertFalse(items.get(1).getQuality() > 50);
 		assertFalse(items.get(2).getQuality() > 50);
