@@ -50,48 +50,49 @@ public class GildedRose {
 			int itemQuality = item.getQuality();
 			int itemSellIn = item.getSellIn();
 
-			if ((!brie.equals(itemName)) && !passes.equals(itemName)) {
-				if (itemQuality > 0) {
-					if (!sulfuras.equals(itemName)) {
+			if (!handleSulfuras(item)) {
+
+				if ((!brie.equals(itemName)) && !passes.equals(itemName)) {
+					if (itemQuality > 0) {
+
 						item.setQuality(itemQuality + normalItemDelta);
-					}
-					if (conjurer.equals(itemName)) {
-						item.setQuality(itemQuality + (2 * normalItemDelta));
-					}
-				}
-			} else {
-				if (itemQuality < 50) {
-					item.setQuality(itemQuality + increaseItemDelta);
-					itemQuality = item.getQuality();
-					if (passes.equals(itemName)) {
-						if (itemSellIn < 11) {
-							if (itemQuality < 50) {
-								item.setQuality(itemQuality + increaseItemDelta);
-							}
+						if (conjurer.equals(itemName)) {
+							item.setQuality(itemQuality + (2 * normalItemDelta));
 						}
+					}
+				} else {
+					if (itemQuality < 50) {
+						item.setQuality(itemQuality + increaseItemDelta);
 						itemQuality = item.getQuality();
+						if (passes.equals(itemName)) {
+							if (itemSellIn < 11) {
+								if (itemQuality < 50) {
+									item.setQuality(itemQuality
+											+ increaseItemDelta);
+								}
+							}
+							itemQuality = item.getQuality();
 
-						if (itemSellIn < 6) {
-							if (itemQuality < 50) {
-								item.setQuality(itemQuality + increaseItemDelta);
+							if (itemSellIn < 6) {
+								if (itemQuality < 50) {
+									item.setQuality(itemQuality
+											+ increaseItemDelta);
+								}
 							}
 						}
 					}
 				}
-			}
-			itemQuality = item.getQuality();
+				itemQuality = item.getQuality();
 
-			if (!sulfuras.equals(itemName)) {
 				item.setSellIn(itemSellIn - 1);
-			}
 
-			itemSellIn = item.getSellIn();
+				itemSellIn = item.getSellIn();
 
-			if (itemSellIn < 0) {
-				if (!brie.equals(itemName)) {
-					if (!passes.equals(itemName)) {
-						if (itemQuality > 0) {
-							if (!sulfuras.equals(itemName)) {
+				if (itemSellIn < 0) {
+					if (!brie.equals(itemName)) {
+						if (!passes.equals(itemName)) {
+							if (itemQuality > 0) {
+
 								if (!conjurer.equals(itemName)) {
 									item.setQuality(itemQuality
 											+ normalItemDelta);
@@ -99,18 +100,24 @@ public class GildedRose {
 									item.setQuality(itemQuality + 2
 											* normalItemDelta);
 								}
+
 							}
+						} else {
+							item.setQuality(0);
 						}
 					} else {
-						item.setQuality(0);
-					}
-				} else {
-					if (itemQuality < 50) {
-						item.setQuality(itemQuality + increaseItemDelta);
+						if (itemQuality < 50) {
+							item.setQuality(itemQuality + increaseItemDelta);
+						}
 					}
 				}
 			}
 		}
 	}
 
+	private static boolean handleSulfuras(final Item item) {
+		if (sulfuras.equals(item.getName()))
+			return true; // do nothing!
+		return false;
+	}
 }
