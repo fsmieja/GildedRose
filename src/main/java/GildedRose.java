@@ -56,11 +56,17 @@ public class GildedRose {
 				}
 
 			}
+			ensureItemQualityNotNegative(item);
 		}
 	}
 
+	private static void ensureItemQualityNotNegative(final Item item) {
+		if (item.getQuality() < 0)
+			item.setQuality(0);
+	}
+
 	private static void handleNormalItem(final Item item) {
-		int itemQuality = item.getQuality();
+		final int itemQuality = item.getQuality();
 		int itemSellIn = item.getSellIn();
 
 		item.setSellIn(itemSellIn - 1);
@@ -71,10 +77,6 @@ public class GildedRose {
 		} else {
 			item.setQuality(itemQuality + normalItemDelta);
 		}
-
-		itemQuality = item.getQuality();
-		if (itemQuality < 0)
-			item.setQuality(0);
 
 	}
 
@@ -98,10 +100,6 @@ public class GildedRose {
 					item.setQuality(itemQuality + 2 * normalItemDelta);
 				}
 			}
-
-			itemQuality = item.getQuality();
-			if (itemQuality < 0)
-				item.setQuality(0);
 
 			return true;
 		}
