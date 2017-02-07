@@ -51,48 +51,40 @@ public class GildedRose {
 			int itemSellIn = item.getSellIn();
 
 			if (!handleSulfuras(item)) {
-
 				if (!handleBrie(item)) {
 					if (!handlePasses(item)) {
-						if (!passes.equals(itemName)) {
-							if (itemQuality > 0) {
+						if (itemQuality > 0) {
 
-								item.setQuality(itemQuality + normalItemDelta);
-								if (conjurer.equals(itemName)) {
-									item.setQuality(itemQuality
-											+ (2 * normalItemDelta));
-								}
-							}
-						} else {
-							if (itemQuality < 50) {
-								item.setQuality(itemQuality + increaseItemDelta);
-								itemQuality = item.getQuality();
+							item.setQuality(itemQuality + normalItemDelta);
+							if (conjurer.equals(itemName)) {
+								item.setQuality(itemQuality
+										+ (2 * normalItemDelta));
 							}
 						}
-						itemQuality = item.getQuality();
-
-						item.setSellIn(itemSellIn - 1);
-
-						itemSellIn = item.getSellIn();
-
-						if (itemSellIn < 0) {
-							if (itemQuality > 0) {
-
-								if (!conjurer.equals(itemName)) {
-									item.setQuality(itemQuality
-											+ normalItemDelta);
-								} else {
-									item.setQuality(itemQuality + 2
-											* normalItemDelta);
-								}
-
-							}
-						}
-
 					}
+					itemQuality = item.getQuality();
+
+					item.setSellIn(itemSellIn - 1);
+
+					itemSellIn = item.getSellIn();
+
+					if (itemSellIn < 0) {
+						if (itemQuality > 0) {
+
+							if (!conjurer.equals(itemName)) {
+								item.setQuality(itemQuality + normalItemDelta);
+							} else {
+								item.setQuality(itemQuality + 2
+										* normalItemDelta);
+							}
+
+						}
+					}
+
 				}
 			}
 		}
+
 	}
 
 	private static boolean handlePasses(final Item item) {
