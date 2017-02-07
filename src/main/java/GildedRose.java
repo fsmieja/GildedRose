@@ -4,6 +4,12 @@ import java.util.List;
 public class GildedRose {
 
 	private static List<Item> items = null;
+	final static String brie = "Aged Brie";
+	final static String passes = "Backstage passes to a TAFKAL80ETC concert";
+	final static String sulfuras = "Sulfuras, Hand of Ragnaros";
+	final static String conjurer = "Conjured Mana Cake";
+	final static int normalItemDelta = -1;
+	final static int increaseItemDelta = 1;
 
 	/**
 	 * @param args
@@ -38,13 +44,6 @@ public class GildedRose {
 	}
 
 	public static void updateQuality() {
-
-		final String brie = "Aged Brie";
-		final String passes = "Backstage passes to a TAFKAL80ETC concert";
-		final String sulfuras = "Sulfuras, Hand of Ragnaros";
-		final String conjurer = "Conjured Mana Cake";
-		final int normalItemDelta = -1;
-		final int increaseItemDelta = 1;
 
 		for (final Item item : items) {
 			final String itemName = item.getName();
@@ -113,4 +112,5 @@ public class GildedRose {
 			}
 		}
 	}
+
 }

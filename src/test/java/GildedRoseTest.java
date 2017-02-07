@@ -154,6 +154,8 @@ public class GildedRoseTest {
 	 * a bit easier to set items
 	 */
 	private void setItems() {
+		// do we only need to setItems once? since items is static?
+		// refactor to do in setUp?
 		GildedRose.setItems(items);
 	}
 
