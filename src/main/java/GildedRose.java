@@ -53,31 +53,35 @@ public class GildedRose {
 			if (!handleSulfuras(item)) {
 				if (!handleBrie(item)) {
 					if (!handlePasses(item)) {
-						if (itemQuality > 0) {
+						if (!handleConjurer(item)) {
+							if (itemQuality > 0) {
 
-							item.setQuality(itemQuality + normalItemDelta);
-							if (conjurer.equals(itemName)) {
-								item.setQuality(itemQuality
-										+ (2 * normalItemDelta));
-							}
-						}
-					}
-					itemQuality = item.getQuality();
-
-					item.setSellIn(itemSellIn - 1);
-
-					itemSellIn = item.getSellIn();
-
-					if (itemSellIn < 0) {
-						if (itemQuality > 0) {
-
-							if (!conjurer.equals(itemName)) {
 								item.setQuality(itemQuality + normalItemDelta);
-							} else {
-								item.setQuality(itemQuality + 2
-										* normalItemDelta);
+								if (conjurer.equals(itemName)) {
+									item.setQuality(itemQuality
+											+ (2 * normalItemDelta));
+								}
 							}
 
+							itemQuality = item.getQuality();
+
+							item.setSellIn(itemSellIn - 1);
+
+							itemSellIn = item.getSellIn();
+
+							if (itemSellIn < 0) {
+								if (itemQuality > 0) {
+
+									if (!conjurer.equals(itemName)) {
+										item.setQuality(itemQuality
+												+ normalItemDelta);
+									} else {
+										item.setQuality(itemQuality + 2
+												* normalItemDelta);
+									}
+
+								}
+							}
 						}
 					}
 
@@ -85,6 +89,36 @@ public class GildedRose {
 			}
 		}
 
+	}
+
+	private static boolean handleConjurer(final Item item) {
+		if (conjurer.equals(item.getName())) {
+			int itemQuality = item.getQuality();
+			int itemSellIn = item.getSellIn();
+
+			if (itemQuality > 0) {
+				item.setQuality(itemQuality + (2 * normalItemDelta));
+			}
+
+			itemQuality = item.getQuality();
+
+			item.setSellIn(itemSellIn - 1);
+
+			itemSellIn = item.getSellIn();
+
+			if (itemSellIn < 0) {
+				if (itemQuality > 0) {
+					item.setQuality(itemQuality + 2 * normalItemDelta);
+				}
+			}
+
+			itemQuality = item.getQuality();
+			if (itemQuality < 0)
+				item.setQuality(0);
+
+			return true;
+		}
+		return false;
 	}
 
 	private static boolean handlePasses(final Item item) {
@@ -102,8 +136,10 @@ public class GildedRose {
 					item.setQuality(itemQuality + 3 * increaseItemDelta);
 				}
 
-				itemQuality = item.getQuality();
 			}
+
+			itemQuality = item.getQuality();
+
 			if (itemQuality > 50)
 				item.setQuality(50);
 
@@ -126,19 +162,22 @@ public class GildedRose {
 
 	private static boolean handleBrie(final Item item) {
 		if (brie.equals(item.getName())) {
-			final int itemQuality = item.getQuality();
+			int itemQuality = item.getQuality();
 			int itemSellIn = item.getSellIn();
 
 			item.setSellIn(itemSellIn - 1);
 			itemSellIn = item.getSellIn();
 
-			if (itemQuality < 50) {
-				if (itemSellIn < 0) {
-					item.setQuality(itemQuality + 2 * increaseItemDelta);
-				} else {
-					item.setQuality(itemQuality + increaseItemDelta);
-				}
+			if (itemSellIn < 0) {
+				item.setQuality(itemQuality + 2 * increaseItemDelta);
+			} else {
+				item.setQuality(itemQuality + increaseItemDelta);
 			}
+
+			itemQuality = item.getQuality();
+			if (itemQuality > 50)
+				item.setQuality(50);
+
 			return true;
 		}
 		return false;
