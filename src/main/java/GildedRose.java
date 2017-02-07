@@ -53,45 +53,29 @@ public class GildedRose {
 			if (!handleSulfuras(item)) {
 
 				if (!handleBrie(item)) {
-					if (!passes.equals(itemName)) {
-						if (itemQuality > 0) {
-
-							item.setQuality(itemQuality + normalItemDelta);
-							if (conjurer.equals(itemName)) {
-								item.setQuality(itemQuality
-										+ (2 * normalItemDelta));
-							}
-						}
-					} else {
-						if (itemQuality < 50) {
-							item.setQuality(itemQuality + increaseItemDelta);
-							itemQuality = item.getQuality();
-							if (passes.equals(itemName)) {
-								if (itemSellIn < 11) {
-									if (itemQuality < 50) {
-										item.setQuality(itemQuality
-												+ increaseItemDelta);
-									}
-								}
-								itemQuality = item.getQuality();
-
-								if (itemSellIn < 6) {
-									if (itemQuality < 50) {
-										item.setQuality(itemQuality
-												+ increaseItemDelta);
-									}
-								}
-							}
-						}
-					}
-					itemQuality = item.getQuality();
-
-					item.setSellIn(itemSellIn - 1);
-
-					itemSellIn = item.getSellIn();
-
-					if (itemSellIn < 0) {
+					if (!handlePasses(item)) {
 						if (!passes.equals(itemName)) {
+							if (itemQuality > 0) {
+
+								item.setQuality(itemQuality + normalItemDelta);
+								if (conjurer.equals(itemName)) {
+									item.setQuality(itemQuality
+											+ (2 * normalItemDelta));
+								}
+							}
+						} else {
+							if (itemQuality < 50) {
+								item.setQuality(itemQuality + increaseItemDelta);
+								itemQuality = item.getQuality();
+							}
+						}
+						itemQuality = item.getQuality();
+
+						item.setSellIn(itemSellIn - 1);
+
+						itemSellIn = item.getSellIn();
+
+						if (itemSellIn < 0) {
 							if (itemQuality > 0) {
 
 								if (!conjurer.equals(itemName)) {
@@ -103,14 +87,43 @@ public class GildedRose {
 								}
 
 							}
-						} else {
-							item.setQuality(0);
 						}
 
 					}
 				}
 			}
 		}
+	}
+
+	private static boolean handlePasses(final Item item) {
+		if (passes.equals(item.getName())) {
+			int itemQuality = item.getQuality();
+			final int itemSellIn = item.getSellIn();
+
+			if (itemQuality < 50) {
+				if (itemSellIn > 10) {
+					item.setQuality(itemQuality + increaseItemDelta);
+				} else if (itemSellIn > 5) {
+					item.setQuality(itemQuality + 2 * increaseItemDelta);
+
+				} else {
+					item.setQuality(itemQuality + 3 * increaseItemDelta);
+				}
+
+				itemQuality = item.getQuality();
+			}
+			if (itemQuality > 50)
+				item.setQuality(50);
+
+			if (itemSellIn == 0) {
+				item.setQuality(0);
+			}
+
+			item.setSellIn(itemSellIn - 1);
+
+			return true;
+		}
+		return false;
 	}
 
 	private static boolean handleSulfuras(final Item item) {
